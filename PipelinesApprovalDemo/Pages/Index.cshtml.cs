@@ -12,6 +12,7 @@ namespace PipelinesApprovalDemo.Pages
   {
     private readonly ILogger<IndexModel> _logger;
     public string MyEnvironment;
+    public string MyVariable;
 
     public IndexModel(ILogger<IndexModel> logger)
     {
@@ -21,10 +22,16 @@ namespace PipelinesApprovalDemo.Pages
     public void OnGet()
     {
       MyEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+      MyVariable = Environment.GetEnvironmentVariable("MyVariable");
 
       if (String.IsNullOrEmpty(MyEnvironment))
       {
         MyEnvironment = "(unknown)";
+      }
+
+      if (String.IsNullOrEmpty(MyVariable))
+      {
+        MyVariable = "(unknown)";
       }
 
     }
