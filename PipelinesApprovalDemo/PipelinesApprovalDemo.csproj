@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>0f18eef6-0699-43c8-829a-445f530e1afc</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/78665f33-bc7d-43df-9f83-ac1064dd74eb/resourceGroups/Pipelines_Approval_Demo/providers/microsoft.insights/components/PipelinesApprovalDemo-AppInsights</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.13.1" />
+  </ItemGroup>
+
+</Project>
