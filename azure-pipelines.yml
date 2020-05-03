@@ -60,5 +60,6 @@ stages:
             inputs:
               azureSubscription: '$(ServiceConnection)'
               appType: 'webApp'
-              WebAppName: '$(WebAppName)'
-              AppSettings: '-MyVariable $(MyVariable)'
+              webAppName: '$(WebAppName)'
+              package: '$(System.ArtifactsDirectory)/**/*.zip'
+              appSettings: '-MyVariable $(MyVariable)'
