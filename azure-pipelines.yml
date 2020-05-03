@@ -39,7 +39,8 @@ stages:
         artifactName: 'drop'
         pathtoPublish: '$(build.artifactstagingdirectory)'
 
-- stage: 'Deploy'
+- stage: 'Dev_Deploy'
+  displayName: 'Deploy to Dev Environment'
   jobs:
   - deployment: 'Dev_Deploy'
     displayName: 'Deploy to Dev Environment'
@@ -63,8 +64,12 @@ stages:
               webAppName: '$(WebAppName)'
               package: '$(System.ArtifactsDirectory)/**/*.zip'
               appSettings: '-MyVariable $(MyVariable)'
+
+- stage: 'Prod_Deploy'
+  displayName: 'Deploy to Production Environment'
+  jobs:
   - deployment: 'Prod_Deploy'
-    displayName: 'Deploy to Prod Environment'
+    displayName: 'Deploy to Production Environment'
     environment: 'Prod'
     variables:
       MyVariable: 'PROD_VALUE'
