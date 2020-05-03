@@ -53,7 +53,8 @@ stages:
           steps:
           - task: DownloadBuildArtifacts@0
             displayName: 'Download Build Artifacts'
-            artifactName: 'drop'
+            inputs:
+              artifactName: 'drop'
           - task: AzureRmWebAppDeployment@4
             displayName: 'Deploy Azure App Service'
             inputs:
