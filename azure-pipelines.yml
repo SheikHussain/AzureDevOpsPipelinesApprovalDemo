@@ -47,14 +47,17 @@ stages:
     variables:
       MyVariable: 'DEV_VALUE'
       WebAppName: 'pipelinesapprovaldemo-dev'
-    steps:
-    - task: DownloadBuildArtifacts@0
-      displayName: 'Download Build Artifacts'
-      artifactName: 'drop'
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy Azure App Service'
-      inputs:
-        azureSubscription: '$(ServiceConnection)'
-        appType: 'webApp'
-        WebAppName: '$(WebAppName)'
-        AppSettings: '-MyVariable $(MyVariable)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadBuildArtifacts@0
+            displayName: 'Download Build Artifacts'
+            artifactName: 'drop'
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Azure App Service'
+            inputs:
+              azureSubscription: '$(ServiceConnection)'
+              appType: 'webApp'
+              WebAppName: '$(WebAppName)'
+              AppSettings: '-MyVariable $(MyVariable)'
