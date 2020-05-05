@@ -58,7 +58,6 @@ stages:
               azureSubscription: '$(ServiceConnection)'
               appType: 'webApp'
               webAppName: '$(WebAppName)'
-              package: '$(System.ArtifactsDirectory)/**/*.zip'
               appSettings: '-MyVariable $(MyVariable)'
 
 - stage: 'Prod_Deploy'
@@ -80,5 +79,4 @@ stages:
               azureSubscription: '$(ServiceConnection)'
               appType: 'webApp'
               webAppName: '$(WebAppName)'
-              package: '$(System.ArtifactsDirectory)/**/*.zip'
               appSettings: '-MyVariable $(MyVariable)'
