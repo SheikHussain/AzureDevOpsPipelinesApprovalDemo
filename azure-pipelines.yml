@@ -42,8 +42,8 @@ stages:
 - stage: 'Dev_Deploy'
   displayName: 'Deploy to Dev Environment'
   jobs:
-  - deployment: 'Dev_Deploy'
-    displayName: 'Deploy to Dev Environment'
+  - deployment: 'Dev_Deploy_WebApp'
+    displayName: 'Deploy Dev Web Application'
     environment: 'Dev'
     variables:
       MyVariable: 'DEV_VALUE'
@@ -64,8 +64,8 @@ stages:
 - stage: 'Prod_Deploy'
   displayName: 'Deploy to Production Environment'
   jobs:
-  - deployment: 'Prod_Deploy'
-    displayName: 'Deploy to Production Environment'
+  - deployment: 'Prod_Deploy_WebApp'
+    displayName: 'Deploy Production Web Appliction'
     environment: 'Prod'
     variables:
       MyVariable: 'PROD_VALUE'
