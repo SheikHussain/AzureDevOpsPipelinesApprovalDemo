@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30028.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PipelinesApprovalDemo", "PipelinesApprovalDemo\PipelinesApprovalDemo.csproj", "{F721654B-B7A9-4522-ACF0-BC0A7D66A0D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{647AC920-A677-44E3-9C61-254A1186DB14}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{623C2124-9554-4C10-9E45-F413DD052D8F}"
 	ProjectSection(SolutionItems) = preProject
-		azure-pipelines.SAMPLE.yml = azure-pipelines.SAMPLE.yml
+		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
 Global
