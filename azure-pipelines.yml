@@ -59,7 +59,7 @@ stages:
                 appType: 'webApp'
                 WebAppName: '$(WebAppName)'
                 AppSettings: '-ASPNETCORE_ENVIRONMENT $(EnvironmentName) -MyVariable $(MyVariable)'
-    - deployment: 'Deploy_WebApp to Prod'
+    - deployment: 'Deploy_WebApp_to_Prod'
       displayName: 'Deploy Web Application to Production'
       environment: 'Prod'
       variables:
