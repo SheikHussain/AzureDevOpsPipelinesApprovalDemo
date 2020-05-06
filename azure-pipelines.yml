@@ -37,24 +37,24 @@ stages:
           PathtoPublish: '$(build.artifactstagingdirectory)'
         condition: succeededOrFailed()
 
-- stage: 'Deploy'
-  displayName: 'Deploy'
-  jobs:
-  - deployment: 'Deploy_WebApp'
-    displayName: 'Deploy Web Application'
-    environment: 'Dev'
-    variables:
-      MyVariable: 'DEV_VALUE'
-      EnvironmentName: 'Development'
-      WebAppName: 'pipelinesapprovaldemo-dev'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureRmWebAppDeployment@4
-            displayName: 'Deploy Azure App Service'
-            inputs:
-              azureSubscription: '$(AzureServiceConnection)'
-              appType: 'webApp'
-              WebAppName: '$(WebAppName)'
-              AppSettings: '-ASPNETCORE_ENVIRONMENT $(EnvironmentName) -MyVariable $(MyVariable)'
+  - stage: 'Deploy'
+    displayName: 'Deploy'
+    jobs:
+    - deployment: 'Deploy_WebApp'
+      displayName: 'Deploy Web Application'
+      environment: 'Dev'
+      variables:
+        MyVariable: 'DEV_VALUE'
+        EnvironmentName: 'Development'
+        WebAppName: 'pipelinesapprovaldemo-dev'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - task: AzureRmWebAppDeployment@4
+              displayName: 'Deploy Azure App Service'
+              inputs:
+                azureSubscription: '$(AzureServiceConnection)'
+                appType: 'webApp'
+                WebAppName: '$(WebAppName)'
+                AppSettings: '-ASPNETCORE_ENVIRONMENT $(EnvironmentName) -MyVariable $(MyVariable)'
