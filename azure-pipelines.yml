@@ -6,28 +6,55 @@ pool:
 
 variables:
   BuildConfiguration: 'Release'
+  AzureServiceConnection: 'Jason Specland MS Internal (78665f33-bc7d-43df-9f83-ac1064dd74eb)'
 
-steps:
-- task: DotNetCoreCLI@2
-  displayName: Restore
-  inputs:
-    command: restore
+stages:
+  - stage: 'Build'
+    jobs:
+    - job: 'Build'
+      steps:
+      - task: DotNetCoreCLI@2
+        displayName: Restore
+        inputs:
+          command: restore
 
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    arguments: '--configuration $(BuildConfiguration)'
+      - task: DotNetCoreCLI@2
+        displayName: Build
+        inputs:
+          arguments: '--configuration $(BuildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: Publish
-  inputs:
-    command: publish
-    publishWebProjects: True
-    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-    zipAfterPublish: True
+      - task: DotNetCoreCLI@2
+        displayName: Publish
+        inputs:
+          command: publish
+          publishWebProjects: True
+          arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+          zipAfterPublish: True
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact'
+        inputs:
+          PathtoPublish: '$(build.artifactstagingdirectory)'
+        condition: succeededOrFailed()
+
+- stage: 'Deploy'
+  displayName: 'Deploy'
+  jobs:
+  - deployment: 'Deploy_WebApp'
+    displayName: 'Deploy Web Application'
+    environment: 'Dev'
+    variables:
+      MyVariable: 'DEV_VALUE'
+      EnvironmentName: 'Development'
+      WebAppName: 'pipelinesapprovaldemo-dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Azure App Service'
+            inputs:
+              azureSubscription: '$(AzureServiceConnection)'
+              appType: 'webApp'
+              WebAppName: '$(WebAppName)'
+              AppSettings: '-ASPNETCORE_ENVIRONMENT $(EnvironmentName) -MyVariable $(MyVariable)'
