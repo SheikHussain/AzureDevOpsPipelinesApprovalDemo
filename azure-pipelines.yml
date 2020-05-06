@@ -37,11 +37,11 @@ stages:
           PathtoPublish: '$(build.artifactstagingdirectory)'
         condition: succeededOrFailed()
 
-  - stage: 'Deploy'
-    displayName: 'Deploy'
+  - stage: 'Dev_Deploy'
+    displayName: 'Deploy to Dev Environment'
     jobs:
-    - deployment: 'Deploy_WebApp'
-      displayName: 'Deploy Web Application'
+    - deployment: 'Deploy_WebApp_Dev'
+      displayName: 'Deploy Web Application to Dev'
       environment: 'Dev'
       variables:
         MyVariable: 'DEV_VALUE'
@@ -59,6 +59,10 @@ stages:
                 appType: 'webApp'
                 WebAppName: '$(WebAppName)'
                 AppSettings: '-ASPNETCORE_ENVIRONMENT $(EnvironmentName) -MyVariable $(MyVariable)'
+
+  - stage: 'Prod_Deploy'
+    displayName: 'Deploy to Production Environment'
+    jobs:
     - deployment: 'Deploy_WebApp_to_Prod'
       displayName: 'Deploy Web Application to Production'
       environment: 'Prod'
