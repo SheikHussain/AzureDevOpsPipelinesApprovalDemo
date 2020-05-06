@@ -59,3 +59,22 @@ stages:
                 appType: 'webApp'
                 WebAppName: '$(WebAppName)'
                 AppSettings: '-ASPNETCORE_ENVIRONMENT $(EnvironmentName) -MyVariable $(MyVariable)'
+    - deployment: 'Deploy_WebApp to Prod'
+      displayName: 'Deploy Web Application to Production'
+      environment: 'Prod'
+      variables:
+        MyVariable: 'PROD_VALUE'
+        EnvironmentName: 'Production'
+        WebAppName: 'pipelinesapprovaldemo-prod'
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - task: AzureRmWebAppDeployment@4
+              displayName: 'Deploy Azure App Service'
+              inputs:
+                azureSubscription: '$(AzureServiceConnection)'
+                package: '$(Pipeline.Workspace)/**/*.zip'
+                appType: 'webApp'
+                WebAppName: '$(WebAppName)'
+                AppSettings: '-ASPNETCORE_ENVIRONMENT $(EnvironmentName) -MyVariable $(MyVariable)'
