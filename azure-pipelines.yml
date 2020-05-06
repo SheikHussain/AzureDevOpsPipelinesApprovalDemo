@@ -55,6 +55,7 @@ stages:
               displayName: 'Deploy Azure App Service'
               inputs:
                 azureSubscription: '$(AzureServiceConnection)'
+                package: '$(Pipeline.Workspace)/**/*.zip'
                 appType: 'webApp'
                 WebAppName: '$(WebAppName)'
                 AppSettings: '-ASPNETCORE_ENVIRONMENT $(EnvironmentName) -MyVariable $(MyVariable)'
